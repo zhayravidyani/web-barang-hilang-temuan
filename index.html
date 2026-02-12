@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost & Found - SMAN 1 Magetan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --maroon-primary: #800000;
+            --maroon-dark: #5a0000;
+            --maroon-light: #a52a2a;
+        }
+        body {
+            background-color: #fcfcfc;
+        }
+        .bg-maroon { background-color: var(--maroon-primary); }
+        .text-maroon { color: var(--maroon-primary); }
+        .border-maroon { border-color: var(--maroon-primary); }
+        .hover-maroon:hover { background-color: var(--maroon-dark); }
+        
+        .card-shadow {
+            box-shadow: 0 10px 15px -3px rgba(128, 0, 0, 0.1), 0 4px 6px -2px rgba(128, 0, 0, 0.05);
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid white;
+            width: 20px;
+            height: 20px;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-900">
+
+    <!-- Header / Navbar -->
+    <header class="bg-maroon text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-4 text-center md:text-left">
+                <div class="bg-white p-2 rounded-xl">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#800000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black tracking-tight leading-none">SMAN 1 MAGETAN</h1>
+                    <p class="text-[10px] font-medium tracking-[0.2em] uppercase opacity-80 mt-1">Sistem Informasi Barang Hilang</p>
+                </div>
+            </div>
+            <nav class="flex space-x-6 text-sm font-bold uppercase tracking-wide">
+                <a href="#beranda" class="hover:text-yellow-400 transition">Beranda</a>
+                <a href="#lapor" class="hover:text-yellow-400 transition">Lapor</a>
+                <a href="#daftar" class="hover:text-yellow-400 transition">Cek Barang</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="relative overflow-hidden bg-maroon py-20 px-6">
+        <div class="absolute inset-0 opacity-10">
+            <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 L100 0 L100 100 Z" fill="white"></path>
+            </svg>
+        </div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight text-balance">Kehilangan Sesuatu?</h2>
+            <p class="text-lg text-red-100 mb-10 max-w-2xl mx-auto">Gunakan portal resmi SMAN 1 Magetan untuk melaporkan temuan atau mencari barang Anda yang hilang.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button onclick="scrollToId('lapor')" class="bg-white text-maroon px-10 py-4 rounded-full font-black text-sm uppercase tracking-widest shadow-xl hover:scale-105 transition active:scale-95">Lapor Sekarang</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        <div class="grid lg:grid-cols-12 gap-12">
+            
+            <!-- Form Laporan -->
+            <aside id="lapor" class="lg:col-span-4">
+                <div class="bg-white p-8 rounded-3xl card-shadow border border-gray-100">
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-black text-maroon">Buat Laporan</h3>
+                    </div>
+                    
+                    <form id="lostFoundForm" class="space-y-5">
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-widest">Jenis Laporan</label>
+                            <select id="status" class="w-full bg-gray-50 border border-gray-200 p-3 rounded-xl focus:ring-2 focus:ring-maroon outline-none transition font-medium">
+                                <option value="HILANG">SAYA KEHILANGAN</option>
+                                <option value="TEMUAN">SAYA MENEMUKAN</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-widest">Nama Barang</label>
+                            <input type="text" id="itemName" class="w-full bg-gray-50 border border-gray-200 p-3 rounded-xl focus:ring-2 focus:ring-maroon outline-none transition font-medium" required>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-widest">Lokasi</label>
+                            <input type="text" id="location" class="w-full bg-gray-50 border border-gray-200 p-3 rounded-xl focus:ring-2 focus:ring-maroon outline-none transition font-medium" required>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-widest">Deskripsi</label>
+                            <textarea id="description" rows="3" class="w-full bg-gray-50 border border-gray-200 p-3 rounded-xl focus:ring-2 focus:ring-maroon outline-none transition font-medium" required></textarea>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-widest">No. WhatsApp</label>
+                            <input type="tel" id="contact" placeholder="08..." class="w-full bg-gray-50 border border-gray-200 p-3 rounded-xl focus:ring-2 focus:ring-maroon outline-none transition font-medium" required>
+                        </div>
+                        <button type="submit" id="submitBtn" class="w-full bg-maroon text-white font-black py-4 rounded-xl shadow-lg hover-maroon transition-all flex justify-center items-center">
+                            Kirim Laporan
+                        </button>
+                    </form>
+                </div>
+            </aside>
+
+            <!-- List Laporan -->
+            <section id="daftar" class="lg:col-span-8">
+                <div id="itemsContainer" class="grid sm:grid-cols-2 gap-6">
+                    <!-- Item akan muncul di sini -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100] px-6">
+        <div class="bg-white p-10 rounded-3xl max-w-md w-full text-center shadow-2xl scale-95 transition-all">
+            <h4 id="modalTitle" class="text-2xl font-black mb-2">Pesan</h4>
+            <p class="text-gray-500 mb-8" id="modalMessage"></p>
+            <button onclick="closeModal()" class="w-full bg-maroon text-white font-black py-4 rounded-xl uppercase tracking-widest text-sm">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        const spreadsheetUrl = "https://script.google.com/macros/s/AKfycbwREl_8hvuxy_k6h27fE6gkn3vwTEzWzRiWMDaCzAAAadlnKmXwpZZpUL9cmCMDTKAl/exec";
+
+        let items = [];
+
+        function scrollToId(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderItems() {
+            const container = document.getElementById('itemsContainer');
+            container.innerHTML = items.map(item => `
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 card-shadow">
+                    <span class="text-[10px] font-black uppercase px-3 py-1.5 rounded-full border ${item.status === 'HILANG' ? 'text-red-600 border-red-200' : 'text-green-600 border-green-200'}">${item.status}</span>
+                    <h4 class="font-black text-gray-800 text-xl mt-4">${item.name}</h4>
+                    <p class="text-xs font-bold text-maroon mt-1">${item.location}</p>
+                    <p class="text-sm text-gray-500 mt-4 italic">"${item.desc}"</p>
+                </div>
+            `).join('');
+        }
+
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerHTML = `<div class="spinner"></div>`;
+
+            const data = {
+                status: document.getElementById('status').value,
+                name: document.getElementById('itemName').value,
+                location: document.getElementById('location').value,
+                desc: document.getElementById('description').value,
+                contact: document.getElementById('contact').value,
+                date: new Date().toLocaleString('id-ID')
+            };
+
+            try {
+                // Menggunakan URLSearchParams agar data dikirim sebagai parameter POST
+                // Ini lebih kompatibel dengan Apps Script doPost(e) standar
+                const params = new URLSearchParams();
+                for (const key in data) {
+                    params.append(key, data[key]);
+                }
+
+                await fetch(spreadsheetUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: params.toString()
+                });
+
+                items.unshift(data);
+                renderItems();
+                showModal("Laporan berhasil dikirim ke Spreadsheet!", true);
+                document.getElementById('lostFoundForm').reset();
+            } catch (err) {
+                console.error(err);
+                showModal("Terjadi kesalahan saat mengirim data.", false);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = "Kirim Laporan";
+            }
+        }
+
+        function showModal(msg, success) {
+            document.getElementById('modalMessage').innerText = msg;
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        document.getElementById('lostFoundForm').addEventListener('submit', handleFormSubmit);
+        renderItems();
+    </script>
+</body>
+</html>
